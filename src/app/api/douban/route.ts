@@ -51,10 +51,10 @@ async function fetchDoubanData(url: string): Promise<DoubanApiResponse> {
 
 // 新增：封装图片地址处理函数
 function processImageUrl(rawUrl: string): string {
-  // 1. 确保图片地址是 HTTPS
+  // 确保图片地址是 HTTPS
   const httpsUrl = rawUrl.replace(/^http:/, 'https:');
-  // 2. 拼接图片代理前缀
-  return `${IMAGE_PROXY_PREFIX}${encodeURIComponent(httpsUrl)}`;
+  // 替换为豆瓣图片的镜像域名
+  return httpsUrl.replace('img9.doubanio.com', 'p2.qqtv123.com').replace('doubanio.com', 'p2.qqtv123.com');
 }
 
 export const runtime = 'edge';
