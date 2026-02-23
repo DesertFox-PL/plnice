@@ -84,6 +84,46 @@
     "xiaomaomi": {
       "api": "https://zy.xmm.hk/api.php/provide/vod",
       "name": "小猫咪资源"
+    },
+    "dtzy1": {
+      "api": "http://xhztv.top/4k.json",
+      "name": "电影天堂资源"
+    },
+    "ttzy2": {
+      "api": "https://www.bugutv.org",
+      "name": "电影天堂资源"
+    },
+    "dyzy3": {
+      "api": "http://xuexizhinan.com",
+      "name": "电影天堂资源"
+    },
+    "dzy4": {
+      "api": "http://http://languangdy.com",
+      "name": "电影天堂资源"
+    },
+    "iqiyi": {
+      "api": "https://www.iqiyizyapi.com/api.php/provide/vod",
+      "name": "iqiyi资源"
+    },
+    "hwba": {
+      "api": "https://cjhwba.com/api.php/provide/vod",
+      "name": "华为吧资源"
+    },
+    "baidu": {
+      "api": "https://api.apibdzy.com/api.php/provide/vod",
+      "name": "百度云资源"
+    },
+    "sdzy": {
+      "api": "https://sdzyapi.com/api.php/provide/vod",
+      "name": "闪电资源"
+    },
+    "zy1080": {
+      "api": "https://api.1080zyku.com/inc/apijson.php",
+      "name": "1080资源"
+    },
+    "suonizy": {
+      "api": "https://suoniapi.com/api.php/provide/vod",
+      "name": "索尼资源"
     }
   }
 }
