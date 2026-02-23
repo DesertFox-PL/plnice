@@ -3,6 +3,11 @@ import { NextResponse } from 'next/server';
 import { getCacheTime } from '@/lib/config';
 import { DoubanItem, DoubanResult } from '@/lib/types';
 
+// 新增：配置图片代理前缀（选一个可用的）
+const IMAGE_PROXY_PREFIX = 'https://images.weserv.nl/?url=';
+// 备选代理地址，上面的不行可以换这个
+// const IMAGE_PROXY_PREFIX = 'https://imageproxy.19940731.xyz/?url=';
+
 interface DoubanApiResponse {
   subjects: Array<{
     id: string;
@@ -42,6 +47,14 @@ async function fetchDoubanData(url: string): Promise<DoubanApiResponse> {
     clearTimeout(timeoutId);
     throw error;
   }
+}
+
+// 新增：封装图片地址处理函数
+function processImageUrl(rawUrl: string): string {
+  // 1. 确保图片地址是 HTTPS
+  const httpsUrl = rawUrl.replace(/^http:/, 'https:');
+  // 2. 拼接图片代理前缀
+  return `${IMAGE_PROXY_PREFIX}${encodeURIComponent(httpsUrl)}`;
 }
 
 export const runtime = 'edge';
@@ -94,11 +107,11 @@ export async function GET(request: Request) {
     // 调用豆瓣 API
     const doubanData = await fetchDoubanData(target);
 
-    // 转换数据格式
+    // 转换数据格式（修改：使用封装的函数处理图片地址）
     const list: DoubanItem[] = doubanData.subjects.map((item) => ({
       id: item.id,
       title: item.title,
-      poster: item.cover,
+      poster: processImageUrl(item.cover), // 关键修改
       rate: item.rate,
       year: '',
     }));
@@ -166,8 +179,8 @@ function handleTop250(pageStart: number) {
         const cover = match[3];
         const rate = match[4] || '';
 
-        // 处理图片 URL，确保使用 HTTPS
-        const processedCover = cover.replace(/^http:/, 'https:');
+        // 修改：使用封装的函数处理图片地址（替代原来的手动替换）
+        const processedCover = processImageUrl(cover);
 
         movies.push({
           id: id,
